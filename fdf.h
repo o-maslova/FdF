@@ -51,6 +51,7 @@ typedef struct			s_window
 	float				corn;
 	int					rows;
 	int					columns;
+	t_coords			**arr;
 }						t_window;
 
 typedef	struct
@@ -64,8 +65,8 @@ void				print_coords(t_coords *dot, t_window *win);
 void				print_coords_one(t_coords dot);
 void				algoritm(t_window *win, t_coords start, t_coords end);
 void				draw(t_window *win, t_coords **arr);
-t_coords			**to_center(t_window *win, t_coords **arr);
-t_coords			**zoom(t_window **win, t_coords **arr, int key);
+t_coords			**to_center(t_window *win);
+t_coords			**zoom(t_window *win, int key);
 t_coords			**move_x(t_window **win, t_coords **arr, int key);
 t_coords			**move_y(t_window **win, t_coords **arr, int key);
 t_coords			**move_z(t_window **win, t_coords **arr, int key);

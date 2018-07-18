@@ -40,7 +40,7 @@ void		print_coords_one(t_coords dot)
 	printf("z = %f\n", dot.z);
 }
 
-t_coords	**to_center(t_window *win, t_coords **arr)
+t_coords	**to_center(t_window *win)
 {
 	int i;
 	int j;
@@ -49,8 +49,8 @@ t_coords	**to_center(t_window *win, t_coords **arr)
 	t_coords **tmp;
 
 	i = 0;
-	len_x = win->columns * (arr[0][1].x - arr[0][0].x);
-	len_y = win->rows * (arr[1][0].y - arr[0][0].y);
+	len_x = win->columns * (win->arr[0][1].x - win->arr[0][0].x);
+	len_y = win->rows * (win->arr[1][0].y - win->arr[0][0].y);
 	tmp = (t_coords **)malloc(sizeof(t_coords *) * win->rows);
 	while (i < win->rows)
 	{
@@ -58,8 +58,8 @@ t_coords	**to_center(t_window *win, t_coords **arr)
 		tmp[i] = (t_coords *)malloc(sizeof(t_coords) * win->columns);
 		while (j < win->columns)
 		{
-			tmp[i][j].x = arr[i][j].x + (WIDTH / 2) - (len_x / 2);
-			tmp[i][j].y = arr[i][j].y + (HEIGTH / 2) - (len_y / 2);
+			tmp[i][j].x = win->arr[i][j].x + (WIDTH / 2) - (len_x / 2);
+			tmp[i][j].y = win->arr[i][j].y + (HEIGTH / 2) - (len_y / 2);
 			j++;
 		}
 		i++;
@@ -125,10 +125,10 @@ t_coords	**make_arr(char *line, t_window **win)
 	int			i;
 	char		**arr_row;
 	char		**arr_clmn;
-	t_coords	**map;
+//	t_coords	**map;
 	
 	i = 0;
-	map = (t_coords **)malloc(sizeof(t_coords *) * (*win)->rows);
+	(*win)->arr = (t_coords **)malloc(sizeof(t_coords *) * (*win)->rows);
 	arr_row = ft_strsplit(line, '\n');
 	while (i < (*win)->rows)
 	{
@@ -140,11 +140,11 @@ t_coords	**make_arr(char *line, t_window **win)
 			printf("Error");
 			return (0);
 		}
-		map[i] = fill_arr(arr_clmn, i, *win);
+		(*win)->arr[i] = fill_arr(arr_clmn, i, *win);
 	//	print_coords(map[i], *win);
 		i++;
 	}
-	return (map);
+	return ((*win)->arr);
 }
 
 t_coords		**parsing(char *argv, t_window **win)
@@ -153,7 +153,7 @@ t_coords		**parsing(char *argv, t_window **win)
 	int			fd;
 	char		*line;
 	char		*tmp;
-	t_coords	**map;
+//	t_coords	**map;
 
 	i = 0;
 	tmp = "";
@@ -168,7 +168,7 @@ t_coords		**parsing(char *argv, t_window **win)
 	(*win)->rows = find_rows(tmp);
 	(*win)->columns = 0;
 	(*win)->scale = 0.8;
-	map = make_arr(tmp, win);
+	(*win)->arr = make_arr(tmp, win);
 	(*win)->corn = 0.2;
-	return (map);
+	return ((*win)->arr);
 }

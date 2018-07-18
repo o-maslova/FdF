@@ -12,7 +12,7 @@
 
 #include "fdf.h"
 
-t_coords	**zoom(t_window **win, t_coords **arr, int key)
+t_coords	**zoom(t_window *win, int key)
 {
 //	t_coords		**tmp;
 	int i;
@@ -20,29 +20,29 @@ t_coords	**zoom(t_window **win, t_coords **arr, int key)
 
 	i = 0;
 	//tmp = (t_coords **)malloc(sizeof(t_coords *) * (*win)->rows);
-	while (i < (*win)->rows)
+	while (i < win->rows)
 	{
 		j = 0;
 	//	tmp[i] = (t_coords *)malloc(sizeof(t_coords) * (*win)->columns);
 		//(*win)->scale += (*win)->scale;
-		while (j < (*win)->columns)
+		while (j < win->columns)
 		{
 			if (key == 78)
 			{
-				arr[i][j].x = arr[i][j].x * (*win)->scale;
-				arr[i][j].y = arr[i][j].y * (*win)->scale;
+				win->arr[i][j].x = win->arr[i][j].x * win->scale;
+				win->arr[i][j].y = win->arr[i][j].y * win->scale;
 			}
 			if (key == 69)
 			{
-				arr[i][j].x = arr[i][j].x / (*win)->scale;
-				arr[i][j].y = arr[i][j].y / (*win)->scale;
+				win->arr[i][j].x = win->arr[i][j].x / win->scale;
+				win->arr[i][j].y = win->arr[i][j].y / win->scale;
 			}
 			//print_coords_one(arr[i][j]);
 			j++;
 		}
 		i++;
 	}
-	return (arr);
+	return (win->arr);
 }
 
 t_coords	**move_x(t_window **win, t_coords **arr, int key)
@@ -65,6 +65,7 @@ t_coords	**move_x(t_window **win, t_coords **arr, int key)
 		tmp[i] = (t_coords *)malloc(sizeof(t_coords) * (*win)->columns);
 		while (j < (*win)->columns)
 		{
+
 			arr[i][j].x = arr[i][j].x;
 			temp = arr[i][j].y;
 			arr[i][j].y = temp * cos((*win)->corn) + arr[i][j].z * sin((*win)->corn);

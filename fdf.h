@@ -54,12 +54,6 @@ typedef struct			s_window
 	t_coords			**arr;
 }						t_window;
 
-typedef	struct
-{
-	t_coords		**arr;
-	t_window		*win;
-}					param;
-
 t_coords			**parsing(char *argv, t_window **win);
 void				print_coords(t_coords *dot, t_window *win);
 void				print_coords_one(t_coords dot);

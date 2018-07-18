@@ -14,17 +14,13 @@
 
 t_coords	**zoom(t_window *win, int key)
 {
-//	t_coords		**tmp;
 	int i;
 	int j;
 
 	i = 0;
-	//tmp = (t_coords **)malloc(sizeof(t_coords *) * (*win)->rows);
 	while (i < win->rows)
 	{
 		j = 0;
-	//	tmp[i] = (t_coords *)malloc(sizeof(t_coords) * (*win)->columns);
-		//(*win)->scale += (*win)->scale;
 		while (j < win->columns)
 		{
 			if (key == 78)

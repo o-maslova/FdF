@@ -125,7 +125,6 @@ t_coords	**make_arr(char *line, t_window **win)
 	int			i;
 	char		**arr_row;
 	char		**arr_clmn;
-//	t_coords	**map;
 	
 	i = 0;
 	(*win)->arr = (t_coords **)malloc(sizeof(t_coords *) * (*win)->rows);
@@ -153,7 +152,6 @@ t_coords		**parsing(char *argv, t_window **win)
 	int			fd;
 	char		*line;
 	char		*tmp;
-//	t_coords	**map;
 
 	i = 0;
 	tmp = "";

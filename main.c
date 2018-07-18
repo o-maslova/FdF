@@ -63,9 +63,7 @@ void		draw(t_window *win, t_coords **arr)
 
 int			main(int argc, char **argv)
 {
-//	t_coords	**arr;
 	t_window	*win;
-	// param		*tmp;
 	int			i;
 
 	i = 0;
@@ -76,9 +74,6 @@ int			main(int argc, char **argv)
 	win->win_ptr = mlx_new_window(win->mlx_ptr, WIDTH, HEIGTH, "mlx 42");
 	//draw(win, arr);
 	draw(win, to_center(win));
-	// tmp = (param *)malloc(sizeof(param));
-	// tmp->arr = win->arr;
-	// tmp->win = win;
 	mlx_hook(win->win_ptr, 2, 0, deal_key, win);
 	mlx_loop(win->mlx_ptr);
 	return (0);

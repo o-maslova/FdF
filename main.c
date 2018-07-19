@@ -20,23 +20,30 @@ int			deal_key(int key, t_window *win)
 	if (key == 53)
 		exit (0);
 	if (key == 69 || key == 78)
-	{
 		win->arr = zoom(win, key);
-		draw(win, to_center(win));
-	}
 		// {
 	// 	zoom(&tmp->win, tmp->arr, key);
 	// 	draw(tmp->win, zoom(&tmp->win, tmp->arr, key));
 	// }
-	if (key == 13 || key == 1)
+	if (key == 13)
 	{
-		win->arr = move_x(&win, win->arr, key);
-		draw(win, to_center(win));
-	// if (key == 2 || key == 0)
-	// 	draw(tmp->win, to_center(tmp->win, move_y(&tmp->win, tmp->arr, key)));
+		move_x(&win, (win->corn + 0.1));
+	}
+	if (key == 1)
+	{
+		move_x(&win, (win->corn - 0.1));
+	}
+	if (key == 2)
+	{
+		move_y(&win, (win->corn + 0.1));
+	}
+	if (key == 0)
+	{
+		move_y(&win, (win->corn - 0.1));
+	}
 	// if (key == 12 || key == 14)
 	// 	draw(tmp->win, to_center(tmp->win, move_z(&tmp->win, tmp->arr, key)));
-	}
+		draw(win, to_center(win, win->arr));
 	return (0);
 }
 
@@ -55,6 +62,7 @@ void		draw(t_window *win, t_coords **arr)
 				algoritm(win, arr[i][j], arr[i + 1][j]);
 			if (j + 1 < win->columns)
 				algoritm(win, arr[i][j], arr[i][j + 1]);
+			
 			j++;
 		}
 		i++;
@@ -73,7 +81,7 @@ int			main(int argc, char **argv)
 	win->mlx_ptr = mlx_init();
 	win->win_ptr = mlx_new_window(win->mlx_ptr, WIDTH, HEIGTH, "mlx 42");
 	//draw(win, arr);
-	draw(win, to_center(win));
+	draw(win, to_center(win, convert(win)));
 	mlx_hook(win->win_ptr, 2, 0, deal_key, win);
 	mlx_loop(win->mlx_ptr);
 	return (0);

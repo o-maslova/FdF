@@ -78,7 +78,7 @@ t_coords	*fill_arr(char **arr, int k, t_window *win)
 	{
 		pixel[i].x = i;
 		pixel[i].y = k;
-		pixel[i].z = ft_atoi(arr[i]);
+		pixel[i].z = ft_atoi(arr[i]) * 10;
 		i++;		
 	}
 	return (pixel);
@@ -140,7 +140,7 @@ t_coords	**make_arr(char *line, t_window **win)
 			return (0);
 		}
 		(*win)->arr[i] = fill_arr(arr_clmn, i, *win);
-	//	print_coords(map[i], *win);
+	//	print_coords((*win)->arr[i], *win);
 		i++;
 	}
 	return ((*win)->arr);

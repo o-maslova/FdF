@@ -17,6 +17,9 @@
 # define POS(x, y) ((x) < (y) ? 1 : -1)
 # define WIDTH 1000
 # define HEIGTH 1000
+# define R_x 0.1
+# define R_y 0.1
+# define R_z 0.1
 # include "get_next_line.h" 
 # include <math.h>
 # include <stdio.h>
@@ -30,7 +33,8 @@ typedef struct			s_coords
 {
 	float				x;
 	float				y;
-	float				z; 
+	float				z;
+	float				corn;
 }						t_coords;
 
 typedef struct			s_alg
@@ -59,10 +63,11 @@ void				print_coords(t_coords *dot, t_window *win);
 void				print_coords_one(t_coords dot);
 void				algoritm(t_window *win, t_coords start, t_coords end);
 void				draw(t_window *win, t_coords **arr);
-t_coords			**to_center(t_window *win);
+t_coords			**convert(t_window *win);
+t_coords			**to_center(t_window *win, t_coords **arr);
 t_coords			**zoom(t_window *win, int key);
-t_coords			**move_x(t_window **win, t_coords **arr, int key);
-t_coords			**move_y(t_window **win, t_coords **arr, int key);
-t_coords			**move_z(t_window **win, t_coords **arr, int key);
+void				move_x(t_window **win, double corn);
+void				move_y(t_window **win, double corn);
+void				move_z(t_window **win, int key);
 
 #endif

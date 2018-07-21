@@ -14,11 +14,12 @@
 
 void		draw_vert_line(t_window *win, t_coords dot, t_alg *line)
 {
-	float x;
-	float y;
+	int x;
+	int y;
 
 	x = dot.x;
 	y = dot.y;
+	line->err = line->len_y * -1;
 	line->length += 1;
 	while (line->length--)
 	{
@@ -35,11 +36,12 @@ void		draw_vert_line(t_window *win, t_coords dot, t_alg *line)
 
 void		draw_horiz_line(t_window *win, t_coords dot, t_alg *line)
 {
-	float x;
-	float y;
+	int x;
+	int y;
 
 	x = dot.x;
 	y = dot.y;
+	line->err = line->len_x * -1;
 	line->length += 1;
 	while (line->length--)
 	{
@@ -56,33 +58,22 @@ void		draw_horiz_line(t_window *win, t_coords dot, t_alg *line)
 
 void		algoritm(t_window *win, t_coords start, t_coords end)
 {
-	t_alg		*line;
-	float		x;
-	float		y;
-//	int		e2;
+	t_alg	*line;
+	int		x;
+	int		y;
 
 	x = start.x;
 	y = start.y;
 	line = (t_alg *)malloc(sizeof(t_alg));
-	line->len_x = ABS(end.x - x);
-	line->len_y = ABS(end.y - y);
-	//line->err = line->len_x / line->len_y;
+	line->len_x = fabs(end.x - x);
+	line->len_y = fabs(end.y - y);
 	line->length = MAX(line->len_x, line->len_y);
-	//line->len_x = 500 - (win->columns / 2 * line->length);
-	line->d_x = POS(x, end.x);
-	line->d_y = POS(y, end.y);
-	line->err = (line->len_x > line->len_y ? line->len_x : -line->len_y);
-	//e2 = line->err;
+	line->d_x = POS(end.x - start.x);
+	line->d_y = POS(end.y - start.y);
 	if (line->length == 0)
 		mlx_pixel_put(win->mlx_ptr, win->win_ptr, x, y, 0xFF0000);
-	else if (line->len_y <= line->len_x)
-	{
-		line->err = -line->len_x;
+	if (line->len_y <= line->len_x)
 		draw_horiz_line(win, start, line);
-	}
 	else
-	{
-		line->err = -line->len_y;
 		draw_vert_line(win, start, line);
-	}
 }

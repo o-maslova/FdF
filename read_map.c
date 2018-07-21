@@ -30,7 +30,7 @@ void		print_coords(t_coords *dot, t_window *win)
 
 void		print_coords_one(t_coords dot)
 {
-	static int k;
+	static int k = 0;
 	int i;
 
 	i = 0;
@@ -38,33 +38,6 @@ void		print_coords_one(t_coords dot)
 	printf("x = %f  ", dot.x);
 	printf("y = %f  ", dot.y);
 	printf("z = %f\n", dot.z);
-}
-
-t_coords	**to_center(t_window *win)
-{
-	int i;
-	int j;
-	int len_x;
-	int len_y;
-	t_coords **tmp;
-
-	i = 0;
-	len_x = win->columns * (win->arr[0][1].x - win->arr[0][0].x);
-	len_y = win->rows * (win->arr[1][0].y - win->arr[0][0].y);
-	tmp = (t_coords **)malloc(sizeof(t_coords *) * win->rows);
-	while (i < win->rows)
-	{
-		j = 0;
-		tmp[i] = (t_coords *)malloc(sizeof(t_coords) * win->columns);
-		while (j < win->columns)
-		{
-			tmp[i][j].x = win->arr[i][j].x + (WIDTH / 2) - (len_x / 2);
-			tmp[i][j].y = win->arr[i][j].y + (HEIGTH / 2) - (len_y / 2);
-			j++;
-		}
-		i++;
-	}
-	return (tmp);
 }
 
 t_coords	*fill_arr(char **arr, int k, t_window *win)
@@ -76,9 +49,9 @@ t_coords	*fill_arr(char **arr, int k, t_window *win)
 	pixel = (t_coords *)malloc(sizeof(t_coords) * win->columns);
 	while (arr[i] != 0)
 	{
-		pixel[i].x = i;
-		pixel[i].y = k;
-		pixel[i].z = ft_atoi(arr[i]) * 10;
+		pixel[i].x = i * 20;
+		pixel[i].y = k * 20;
+		pixel[i].z = ft_atoi(arr[i]);
 		i++;		
 	}
 	return (pixel);
@@ -140,7 +113,6 @@ t_coords	**make_arr(char *line, t_window **win)
 			return (0);
 		}
 		(*win)->arr[i] = fill_arr(arr_clmn, i, *win);
-	//	print_coords((*win)->arr[i], *win);
 		i++;
 	}
 	return ((*win)->arr);
@@ -161,12 +133,15 @@ t_coords		**parsing(char *argv, t_window **win)
 		tmp = ft_strjoin(tmp, line);
 		tmp = ft_strjoin(tmp, "\n");
 	}
-	// printf("%s\n", tmp);
-	// printf("\n---------\n");
 	(*win)->rows = find_rows(tmp);
 	(*win)->columns = 0;
-	(*win)->scale = 0.8;
+	(*win)->scale = 1;
 	(*win)->arr = make_arr(tmp, win);
-	(*win)->corn = 0.2;
+	(*win)->corn_x = 1;
+	(*win)->corn_y = 0.5;
+	(*win)->corn_z = 0;
+	(*win)->high = 2;
+	(*win)->move_right = 0;
+	(*win)->move_up = 0;
 	return ((*win)->arr);
 }

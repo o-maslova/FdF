@@ -12,14 +12,17 @@
 
 #ifndef FDF_H
 # define FDF_H
-# define ABS(x) (x < 0 ? -x : x)
 # define MAX(x, y) ((x) > (y)) ? (x) : (y)
-# define POS(x, y) ((x) < (y) ? 1 : -1)
+# define POS(x) (x >= 0 ? 1 : -1)
 # define WIDTH 1000
 # define HEIGTH 1000
-# define R_x 0.1
-# define R_y 0.1
-# define R_z 0.1
+# define R_x win->corn_x
+# define R_y win->corn_y
+# define R_z win->corn_z
+# define HIGH win->high
+# define SCALE win->scale
+# define MOVE_RIGHT win->move_right
+# define MOVE_UP win->move_up
 # include "get_next_line.h" 
 # include <math.h>
 # include <stdio.h>
@@ -29,15 +32,15 @@
 #include <mlx.h>
 #include "./libft/libft.h"
 
-typedef struct			s_coords
+typedef struct		s_coords
 {
-	float				x;
-	float				y;
-	float				z;
-	float				corn;
-}						t_coords;
+	float			x;
+	float			y;
+	float			z;
+	float			corn;
+}					t_coords;
 
-typedef struct			s_alg
+typedef struct		s_alg
 {
 	int				d_x;
 	int				d_y;
@@ -45,18 +48,24 @@ typedef struct			s_alg
 	int				len_y;
 	int				length;
 	int				err;
-}						t_alg;
+}					t_alg;
 
-typedef struct			s_window
+typedef struct		s_window
 {
-	void				*win_ptr;
-	void				*mlx_ptr;
-	float				scale;
-	float				corn;
-	int					rows;
-	int					columns;
-	t_coords			**arr;
-}						t_window;
+	void			*win_ptr;
+	void			*mlx_ptr;
+	float			scale;
+	float			corn_x;
+	float			corn_y;
+	float			corn_z;
+	int				high;
+	int				move_right;
+	int				move_up;
+	int				rows;
+	int				columns;
+	t_coords		**arr;
+	t_coords		**mod_arr;
+}					t_window;
 
 t_coords			**parsing(char *argv, t_window **win);
 void				print_coords(t_coords *dot, t_window *win);
@@ -65,9 +74,6 @@ void				algoritm(t_window *win, t_coords start, t_coords end);
 void				draw(t_window *win, t_coords **arr);
 t_coords			**convert(t_window *win);
 t_coords			**to_center(t_window *win, t_coords **arr);
-t_coords			**zoom(t_window *win, int key);
-void				move_x(t_window **win, double corn);
-void				move_y(t_window **win, double corn);
-void				move_z(t_window **win, int key);
+t_coords			**move_right(t_window *win);
 
 #endif

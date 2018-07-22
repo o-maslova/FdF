@@ -14,8 +14,8 @@
 # define FDF_H
 # define MAX(x, y) ((x) > (y)) ? (x) : (y)
 # define POS(x) (x >= 0 ? 1 : -1)
-# define WIDTH 1000
-# define HEIGTH 1000
+# define WIDTH win->width
+# define HEIGTH win->heigth
 # define R_x win->corn_x
 # define R_y win->corn_y
 # define R_z win->corn_z
@@ -23,6 +23,7 @@
 # define SCALE win->scale
 # define MOVE_RIGHT win->move_right
 # define MOVE_UP win->move_up
+//# define COLOR win->arr->color
 # include "get_next_line.h" 
 # include <math.h>
 # include <stdio.h>
@@ -37,7 +38,7 @@ typedef struct		s_coords
 	float			x;
 	float			y;
 	float			z;
-	float			corn;
+	int				color;
 }					t_coords;
 
 typedef struct		s_alg
@@ -48,6 +49,7 @@ typedef struct		s_alg
 	int				len_y;
 	int				length;
 	int				err;
+	int				step;
 }					t_alg;
 
 typedef struct		s_window
@@ -63,6 +65,8 @@ typedef struct		s_window
 	int				move_up;
 	int				rows;
 	int				columns;
+	int				width;
+	int				heigth;
 	t_coords		**arr;
 	t_coords		**mod_arr;
 }					t_window;
@@ -72,6 +76,7 @@ void				print_coords(t_coords *dot, t_window *win);
 void				print_coords_one(t_coords dot);
 void				algoritm(t_window *win, t_coords start, t_coords end);
 void				draw(t_window *win, t_coords **arr);
+void				display(t_window *win);
 t_coords			**convert(t_window *win);
 t_coords			**to_center(t_window *win, t_coords **arr);
 t_coords			**move_right(t_window *win);

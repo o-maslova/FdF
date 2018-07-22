@@ -21,17 +21,17 @@ int			deal_key(int key, t_window *win)
 		SCALE += 0.2;
 	if (key == 78)
 		SCALE -= 0.2;
-	if (key == 13)
+	if (key == 89)
 		R_x += 0.2;
-	if (key == 1)
+	if (key == 83)
 		R_x -= 0.2;
-	if (key == 2)
+	if (key == 87)
 		R_y += 0.2;
-	if (key == 0)
+	if (key == 86)
 		R_y -= 0.2;
-	if (key == 12)
+	if (key == 84)
 		R_z += 0.2;
-	if (key == 14)
+	if (key == 91)
 		R_z -= 0.2;
 	if (key == 116)
 		HIGH += 1;
@@ -41,12 +41,12 @@ int			deal_key(int key, t_window *win)
 		MOVE_RIGHT += 10;
 	if (key == 123)
 		MOVE_RIGHT -= 10;
-	if (key == 126)
+	if (key == 92)
 		MOVE_UP -= 10;
-	if (key == 125)
+	if (key == 85)
 		MOVE_UP += 10;
-	win->mod_arr = convert(win);
-	draw(win, to_center(win, win->mod_arr));
+//	win->mod_arr = convert(win);
+	draw(win, to_center(win, convert(win)));
 	return (0);
 }
 
@@ -56,6 +56,7 @@ void		draw(t_window *win, t_coords **arr)
 	int j;
 
 	i = 0;
+	display(win);
 	while (i < win->rows)
 	{
 		j = 0;
@@ -77,12 +78,26 @@ int			main(int argc, char **argv)
 	
 	argc = 0;
 	win = (t_window *)malloc(sizeof(t_window));
-	win->arr = parsing(argv[1], &win);
-	win->mlx_ptr = mlx_init();
-	win->win_ptr = mlx_new_window(win->mlx_ptr, WIDTH, HEIGTH, "mlx 42");
-	win->mod_arr = convert(win);
-	draw(win, to_center(win, win->mod_arr));
-	mlx_hook(win->win_ptr, 2, 0, deal_key, win);
-	mlx_loop(win->mlx_ptr);
+	if ((win->arr = parsing(argv[1], &win)) != NULL)
+	{
+		win->mlx_ptr = mlx_init();
+		win->width = 1000;
+		win->heigth = 1000;
+		win->mod_arr = to_center(win, convert(win));
+	//	printf("dot2.x = %f,  dot2.y = %f", win->mod_arr[win->rows - 1][win->columns - 1].x, win->mod_arr[win->rows - 1][win->columns - 1].y);
+		if (win->mod_arr[win->rows - 1][win->columns - 1].x >= win->width || 
+		win->mod_arr[win->rows - 1][win->columns - 1].y >= win->heigth)
+		{
+			win->scale -= 4;
+			win->heigth = 1000;
+			win->width = 1500;
+		//	printf("\n\ndot.x = %f,  dot.y = %f", win->mod_arr[win->rows - 1][win->columns - 1].x, win->mod_arr[win->rows - 1][win->columns - 1].y);
+			win->mod_arr = to_center(win, convert(win));
+		}
+		win->win_ptr = mlx_new_window(win->mlx_ptr, WIDTH, HEIGTH, "mlx 42");
+		draw(win, win->mod_arr);
+		mlx_hook(win->win_ptr, 2, 0, deal_key, win);
+		mlx_loop(win->mlx_ptr);
+	}
 	return (0);
 }

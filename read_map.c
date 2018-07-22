@@ -12,21 +12,21 @@
 
 #include "fdf.h"
 
-void		print_coords(t_coords *dot, t_window *win)
-{
-	static int k;
-	int i;
+// void		print_coords(t_coords *dot, t_window *win)
+// {
+// 	static int k;
+// 	int i;
 
-	i = 0;
-	while (i < win->columns)
-	{
-		printf("---coords number %d---\n", k++);
-		printf("x = %f  ", dot[i].x);
-		printf("y = %f  ", dot[i].y);
-		printf("z = %f\n", dot[i].z);
-		i++;
-	}
-}
+// 	i = 0;
+// 	while (i < win->columns)
+// 	{
+// 		printf("---coords number %d---\n", k++);
+// 		printf("x = %f  ", dot[i].x);
+// 		printf("y = %f  ", dot[i].y);
+// 		printf("z = %f\n", dot[i].z);
+// 		i++;
+// 	}
+// }
 
 void		print_coords_one(t_coords dot)
 {
@@ -40,6 +40,47 @@ void		print_coords_one(t_coords dot)
 	printf("z = %f\n", dot.z);
 }
 
+int	get_num(char c)
+{
+	if (c == 'a' || c == 'A')
+		return (10);
+	if (c == 'b' || c == 'B')
+		return (11);
+	if (c == 'c' || c == 'C')
+		return (12);
+	if (c == 'd' || c == 'D')
+		return (13);
+	if (c == 'e' || c == 'E')
+		return (14);
+	if (c == 'f' || c == 'F')
+		return (15);
+	else
+		return (c - 48);
+}
+
+int		atoi_base(char *str, int base)
+{
+	int i;
+	int res;
+
+	while (*str != '\0' && *str != 'x')
+		str++;
+	if (*str == '\0')
+		return (0x0000FF);
+	i = 1;
+	res = 0;
+	while (str[i] != '\0')
+	{
+		if (ft_strlen(str) > 1 && i == 0)
+			res = base * get_num(str[i++]);
+		else if (ft_strlen(str) > 1 && i > 0)
+			res *= base;
+		res += get_num(str[i]);
+		i++;
+	}
+	return (res);
+}
+
 t_coords	*fill_arr(char **arr, int k, t_window *win)
 {
 	int				i;
@@ -49,9 +90,11 @@ t_coords	*fill_arr(char **arr, int k, t_window *win)
 	pixel = (t_coords *)malloc(sizeof(t_coords) * win->columns);
 	while (arr[i] != 0)
 	{
-		pixel[i].x = i * 20;
-		pixel[i].y = k * 20;
+		pixel[i].x = i * SCALE;
+		pixel[i].y = k * SCALE;
 		pixel[i].z = ft_atoi(arr[i]);
+		pixel[i].color = atoi_base(arr[i], 16);
+	//s	print_coords_one(pixel[i]);
 		i++;		
 	}
 	return (pixel);
@@ -110,6 +153,7 @@ t_coords	**make_arr(char *line, t_window **win)
 		else if ((*win)->columns != find_columns(arr_clmn))
 		{
 			printf("Error");
+			(*win)->arr = NULL;
 			return (0);
 		}
 		(*win)->arr[i] = fill_arr(arr_clmn, i, *win);
@@ -135,10 +179,10 @@ t_coords		**parsing(char *argv, t_window **win)
 	}
 	(*win)->rows = find_rows(tmp);
 	(*win)->columns = 0;
-	(*win)->scale = 1;
+	(*win)->scale = 5;
 	(*win)->arr = make_arr(tmp, win);
-	(*win)->corn_x = 1;
-	(*win)->corn_y = 0.5;
+	(*win)->corn_x = 0;
+	(*win)->corn_y = 0;
 	(*win)->corn_z = 0;
 	(*win)->high = 2;
 	(*win)->move_right = 0;

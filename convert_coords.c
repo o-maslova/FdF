@@ -9,7 +9,7 @@ t_coords	**to_center(t_window *win, t_coords **arr)
 	t_coords **tmp;
 
 	i = 0;
-	len_x = win->columns * (arr[0][1].x -arr[0][0].x);
+	len_x = win->columns * (arr[0][1].x - arr[0][0].x);
 	len_y = win->rows * (arr[1][0].y - arr[0][0].y);
 	tmp = (t_coords **)malloc(sizeof(t_coords *) * win->rows);
 	while (i < win->rows)
@@ -20,6 +20,7 @@ t_coords	**to_center(t_window *win, t_coords **arr)
 		{
 			tmp[i][j].x = (arr[i][j].x + (WIDTH / 2) - (len_x / 2)) + MOVE_RIGHT;
 			tmp[i][j].y = (arr[i][j].y + (HEIGTH / 2) - (len_y / 2)) + MOVE_UP;
+			tmp[i][j].color = arr[i][j].color;
 			j++;
 		}
 		i++;
@@ -36,15 +37,18 @@ void	xyz_to_xy(t_window *win, t_coords dot, t_coords *map)
 	t_x = dot.x * SCALE;
 	t_y = dot.y * SCALE;
 	t_z = dot.z * HIGH;
+	// if (t_z > 0)
+	// 	t_z *= -1;
 	map->y = (int)(t_y * cos(R_x) + t_z * -sin(R_x));
 	map->z = (int)(t_y * sin(R_x) + t_z * cos(R_x));
-	t_z = map->z;
+	t_z = (int)map->z;
 	map->x = (int)(t_x * cos(R_y) + t_z * sin(R_y));
 	map->z = (int)(t_x * -sin(R_y) + t_z * cos(R_y));
-	t_y = map->y;
-	t_x = map->x;
+	t_y = (int)map->y;
+	t_x = (int)map->x;
 	map->x = (int)(t_x * cos(R_z) + t_y * -sin(R_z));
 	map->y = (int)(t_y * cos(R_z) + t_x * sin(R_z));
+	map->color = dot.color;
 }
 
 t_coords	**convert(t_window *win)

@@ -12,28 +12,58 @@
 
 #include "fdf.h"
 
-void	display(t_window *win)
+void	display_first(t_window *win)
 {
-	mlx_string_put(win->mlx_ptr, win->win_ptr, 10, 10, 0xFFFFFF,
-	"Move the image up: 9");
-	mlx_string_put(win->mlx_ptr, win->win_ptr, 10, 40, 0xFFFFFF,
-	"Move the image down: 3");
-	mlx_string_put(win->mlx_ptr, win->win_ptr, 10, 70, 0xFFFFFF,
-	"Move the image left: <");
-	mlx_string_put(win->mlx_ptr, win->win_ptr, 10, 100, 0xFFFFFF,
-	"Move the image right: >");
-	mlx_string_put(win->mlx_ptr, win->win_ptr, 10, 130, 0xFFFFFF,
-	"Rotate along the x-axis: 1 / 7");
-	mlx_string_put(win->mlx_ptr, win->win_ptr, 10, 160, 0xFFFFFF,
-	"Rotate along the y-axis: 4 / 5");
-	mlx_string_put(win->mlx_ptr, win->win_ptr, 10, 190, 0xFFFFFF,
-	"Rotate along the z-axis: 2 / 8");
-	mlx_string_put(win->mlx_ptr, win->win_ptr, 10, 220, 0xFFFFFF,
-	"Enlarge the image: +");
-	mlx_string_put(win->mlx_ptr, win->win_ptr, 10, 250, 0xFFFFFF,
-	"Squeeze the image: -");
-	mlx_string_put(win->mlx_ptr, win->win_ptr, 10, 280, 0xFFFFFF,
-	"Increase the height: /\\");
-	mlx_string_put(win->mlx_ptr, win->win_ptr, 10, 310, 0xFFFFFF,
-	"Decrease the height: \\/");
+	mlx_string_put(win->mlx_ptr, win->win_ptr, 10, 0, 0x9AB1B3,
+	"* * * * * * * * * * * * * * *");
+	mlx_string_put(win->mlx_ptr, win->win_ptr, 10, 15, 0x9AB1B3,
+	"*   MOVE:  up       up >    *");
+	mlx_string_put(win->mlx_ptr, win->win_ptr, 10, 35, 0x9AB1B3,
+	"*          down     down >  *");
+	mlx_string_put(win->mlx_ptr, win->win_ptr, 10, 50, 0x9AB1B3,
+	"*          left        <    *");
+	mlx_string_put(win->mlx_ptr, win->win_ptr, 10, 65, 0x9AB1B3,
+	"*          right       >    *");
+	mlx_string_put(win->mlx_ptr, win->win_ptr, 10, 80, 0x9AB1B3,
+	"* ROTATE:  x-axis    a, d   *");
+	mlx_string_put(win->mlx_ptr, win->win_ptr, 10, 95, 0x9AB1B3,
+	"*          y-axis    w, s   *");
+	mlx_string_put(win->mlx_ptr, win->win_ptr, 10, 110, 0x9AB1B3,
+	"*          z-axis    q, e   *");
+	mlx_string_put(win->mlx_ptr, win->win_ptr, 10, 125, 0x9AB1B3,
+	"* SCALE:   bigger      +    *");
+	mlx_string_put(win->mlx_ptr, win->win_ptr, 10, 140, 0x9AB1B3,
+	"*          smaller     -    *");
+	mlx_string_put(win->mlx_ptr, win->win_ptr, 10, 155, 0x9AB1B3,
+	"*  HIGH:  increase     7    *");
+	mlx_string_put(win->mlx_ptr, win->win_ptr, 10, 170, 0x9AB1B3,
+	"*         decrease     1    *");
+}
+
+void	display_second(t_window *win)
+{
+	mlx_string_put(win->mlx_ptr, win->win_ptr, 10, 185, 0x9AB1B3,
+	"* COLOR:                    *");
+	mlx_string_put(win->mlx_ptr, win->win_ptr, 10, 185, 0x910D0D,
+	"            red        R     ");
+	mlx_string_put(win->mlx_ptr, win->win_ptr, 10, 200, 0x9AB1B3,
+	"*                           *");
+	mlx_string_put(win->mlx_ptr, win->win_ptr, 10, 200, 0x27964C,
+	"           green       G     ");
+	mlx_string_put(win->mlx_ptr, win->win_ptr, 10, 215, 0x9AB1B3,
+	"*                           *");
+	mlx_string_put(win->mlx_ptr, win->win_ptr, 10, 215, 0x41B0EE,
+	"            blue       B     ");
+	mlx_string_put(win->mlx_ptr, win->win_ptr, 10, 230, 0x9AB1B3,
+	"*                           *");
+	mlx_string_put(win->mlx_ptr, win->win_ptr, 10, 230, 0x9B11D1,
+	"           purple      P     ");
+	mlx_string_put(win->mlx_ptr, win->win_ptr, 10, 245, 0x9AB1B3,
+	"*                           *");
+	mlx_string_put(win->mlx_ptr, win->win_ptr, 10, 245, 0xEB7C21,
+	"           orange      O     ");
+	mlx_string_put(win->mlx_ptr, win->win_ptr, 10, 265, 0x9AB1B3,
+	"*the first view:     space  *");
+	mlx_string_put(win->mlx_ptr, win->win_ptr, 10, 280, 0x9AB1B3,
+	"* * * * * * * * * * * * * * *");
 }

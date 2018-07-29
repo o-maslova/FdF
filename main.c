@@ -12,41 +12,47 @@
 
 #include "fdf.h"
 
+t_coords	**memmaloc(t_window *win)
+{
+	int i;
+
+	i = -1;
+	win->mod_arr = (t_coords **)malloc(sizeof(t_coords *) * win->rows);
+	while (++i < win->rows)
+		win->mod_arr[i] = (t_coords *)malloc(sizeof(t_coords) * win->columns);
+	return (win->mod_arr);
+}
+
+t_window	*initialization(t_window *win)
+{
+	win->mlx_ptr = mlx_init();
+	win->scale = 10;
+	win->color = 0xFFFFFF;
+	win->corn_x = 1;
+	win->corn_y = 0.5;
+	win->corn_z = 0;
+	win->high = 5;
+	win->move_right = 0;
+	win->move_up = 0;
+	return (win);
+}
+
 int			deal_key(int key, t_window *win)
 {
 	mlx_clear_window(win->mlx_ptr, win->win_ptr);
 	if (key == 53)
-		exit (0);
+		exit(0);
 	if (key == 69)
-		SCALE += 0.2;
+		SCALE += 1;
 	if (key == 78)
-		SCALE -= 0.2;
-	if (key == 89)
-		R_x += 0.2;
-	if (key == 83)
-		R_x -= 0.2;
-	if (key == 87)
-		R_y += 0.2;
-	if (key == 86)
-		R_y -= 0.2;
-	if (key == 84)
-		R_z += 0.2;
-	if (key == 91)
-		R_z -= 0.2;
-	if (key == 116)
-		HIGH += 1;
-	if (key == 121)
-		HIGH -= 1;
-	if (key == 124)
-		MOVE_RIGHT += 10;
-	if (key == 123)
-		MOVE_RIGHT -= 10;
-	if (key == 92)
-		MOVE_UP -= 10;
-	if (key == 85)
-		MOVE_UP += 10;
-//	win->mod_arr = convert(win);
-	draw(win, to_center(win, convert(win)));
+		SCALE -= 1;
+	if (key == 49)
+		win = initialization(win);
+	turn(key, win);
+	move(key, win);
+	color(key, win);
+	win->mod_arr = to_center(win, convert(win));
+	draw(win, win->mod_arr);
 	return (0);
 }
 
@@ -56,7 +62,8 @@ void		draw(t_window *win, t_coords **arr)
 	int j;
 
 	i = 0;
-	display(win);
+	display_first(win);
+	display_second(win);
 	while (i < win->rows)
 	{
 		j = 0;
@@ -75,29 +82,26 @@ void		draw(t_window *win, t_coords **arr)
 int			main(int argc, char **argv)
 {
 	t_window	*win;
-	
-	argc = 0;
+
+	if (argc > 2 || argc == 1)
+		error_handling(2);
 	win = (t_window *)malloc(sizeof(t_window));
-	if ((win->arr = parsing(argv[1], &win)) != NULL)
+	win->arr = parsing(argv[1], &win);
+	win->mod_arr = memmaloc(win);
+	win->heigth = 1000;
+	win->width = 1000;
+	win = initialization(win);
+	win->mod_arr = to_center(win, convert(win));
+	if (win->mod_arr[0][win->columns - 1].y < 0)
 	{
-		win->mlx_ptr = mlx_init();
-		win->width = 1000;
-		win->heigth = 1000;
+		win->scale -= 7;
+		win->heigth = 1200;
+		win->width = 1500;
 		win->mod_arr = to_center(win, convert(win));
-	//	printf("dot2.x = %f,  dot2.y = %f", win->mod_arr[win->rows - 1][win->columns - 1].x, win->mod_arr[win->rows - 1][win->columns - 1].y);
-		if (win->mod_arr[win->rows - 1][win->columns - 1].x >= win->width || 
-		win->mod_arr[win->rows - 1][win->columns - 1].y >= win->heigth)
-		{
-			win->scale -= 4;
-			win->heigth = 1000;
-			win->width = 1500;
-		//	printf("\n\ndot.x = %f,  dot.y = %f", win->mod_arr[win->rows - 1][win->columns - 1].x, win->mod_arr[win->rows - 1][win->columns - 1].y);
-			win->mod_arr = to_center(win, convert(win));
-		}
-		win->win_ptr = mlx_new_window(win->mlx_ptr, WIDTH, HEIGTH, "mlx 42");
-		draw(win, win->mod_arr);
-		mlx_hook(win->win_ptr, 2, 0, deal_key, win);
-		mlx_loop(win->mlx_ptr);
 	}
+	win->win_ptr = mlx_new_window(win->mlx_ptr, WIDTH, HEIGTH, "mlx 42");
+	draw(win, win->mod_arr);
+	mlx_hook(win->win_ptr, 2, 0, deal_key, win);
+	mlx_loop(win->mlx_ptr);
 	return (0);
 }

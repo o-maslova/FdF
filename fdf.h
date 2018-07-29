@@ -23,15 +23,14 @@
 # define SCALE win->scale
 # define MOVE_RIGHT win->move_right
 # define MOVE_UP win->move_up
-//# define COLOR win->arr->color
+# define COLOR win->color
 # include "get_next_line.h" 
 # include <math.h>
 # include <stdio.h>
-#include <unistd.h>
-#include <stdio.h>
-#include <fcntl.h>
-#include <mlx.h>
-#include "./libft/libft.h"
+# include <fcntl.h>
+# include <mlx.h>
+# include <stdlib.h>
+# include "./libft/libft.h"
 
 typedef struct		s_coords
 {
@@ -49,7 +48,6 @@ typedef struct		s_alg
 	int				len_y;
 	int				length;
 	int				err;
-	int				step;
 }					t_alg;
 
 typedef struct		s_window
@@ -67,18 +65,37 @@ typedef struct		s_window
 	int				columns;
 	int				width;
 	int				heigth;
+	int				color;
 	t_coords		**arr;
 	t_coords		**mod_arr;
 }					t_window;
 
-t_coords			**parsing(char *argv, t_window **win);
-void				print_coords(t_coords *dot, t_window *win);
-void				print_coords_one(t_coords dot);
+typedef struct		s_color
+{
+	int				red;
+	int				green;
+	int				blue;
+	int				red_step;
+	int				green_step;
+	int				blue_step;
+}					t_color;
+
+int					atoi_base(char *str, int base);
+void				columns(char *line);
+char				*cancat(char *line, char **str);
+void				error_handling(int res);
 void				algoritm(t_window *win, t_coords start, t_coords end);
 void				draw(t_window *win, t_coords **arr);
-void				display(t_window *win);
+void				display_first(t_window *win);
+void				display_second(t_window *win);
+void				turn(int key, t_window *win);
+void				move(int key, t_window *win);
+void				color(int key, t_window *win);
+void				memory_free(char **arr);
+t_coords			**parsing(char *argv, t_window **win);
 t_coords			**convert(t_window *win);
+t_coords			**gradient(t_window **win, t_coords **arr, t_coords **mod_arr);
 t_coords			**to_center(t_window *win, t_coords **arr);
-t_coords			**move_right(t_window *win);
+t_coords			**memmaloc(t_window *win);
 
 #endif

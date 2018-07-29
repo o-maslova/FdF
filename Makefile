@@ -11,7 +11,7 @@
 #******************************************************************************#
 NAME = fdf
 
-SRC = main.c read_map.c algorithm.c get_next_line.c key_hook.c
+SRC = main.c read_map.c algorithm.c get_next_line.c key_hook.c convert_coords.c display.c atoi_base.c error_handling.c
 
 LIBS = -lmlx -L./libft/ -lft
 

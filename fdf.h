@@ -6,7 +6,7 @@
 /*   By: omaslova <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/09 15:58:02 by omaslova          #+#    #+#             */
-/*   Updated: 2018/07/09 15:58:08 by omaslova         ###   ########.fr       */
+/*   Updated: 2018/07/31 13:09:32 by omaslova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,15 @@
 # define HEIGTH win->heigth
 # define HALF_X (win->rows / 2)
 # define HALF_Y (win->columns / 2)
-# define R_x win->corn_x
-# define R_y win->corn_y
-# define R_z win->corn_z
+# define R_X win->corn_x
+# define R_Y win->corn_y
+# define R_Z win->corn_z
 # define HIGH win->high
 # define SCALE win->scale
 # define MOVE_RIGHT win->move_right
 # define MOVE_UP win->move_up
 # define COLOR win->color
-# include "get_next_line.h" 
+# include "get_next_line.h"
 # include <math.h>
 # include <stdio.h>
 # include <fcntl.h>

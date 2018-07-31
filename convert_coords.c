@@ -91,15 +91,15 @@ void		xyz_to_xy(t_window *win, t_coords dot, t_coords *map)
 	else if (HIGH < -20)
 		HIGH = -20;
 	t_z = dot.z * HIGH;
-	map->y = (int)((t_y - Y) * cos(R_x) + (t_z - Z) * -sin(R_x)) + Y;
-	map->z = (int)((t_y - Y) * sin(R_x) + (t_z - Z) * cos(R_x)) + Z;
+	map->y = (int)((t_y - Y) * cos(R_X) + (t_z - Z) * -sin(R_X)) + Y;
+	map->z = (int)((t_y - Y) * sin(R_X) + (t_z - Z) * cos(R_X)) + Z;
 	t_z = (int)map->z;
-	map->x = (int)((t_x - X) * cos(R_y) + (t_z - Z) * sin(R_y)) + X;
-	map->z = (int)((t_x - X) * -sin(R_y) + (t_z - Z) * cos(R_y)) + Z;
+	map->x = (int)((t_x - X) * cos(R_Y) + (t_z - Z) * sin(R_Y)) + X;
+	map->z = (int)((t_x - X) * -sin(R_Y) + (t_z - Z) * cos(R_Y)) + Z;
 	t_y = (int)map->y;
 	t_x = (int)map->x;
-	map->x = (int)((t_x - X) * cos(R_z) + (t_y - Y) * -sin(R_z)) + X;
-	map->y = (int)((t_y - Y) * cos(R_z) + (t_x - X) * sin(R_z)) + Y;
+	map->x = (int)((t_x - X) * cos(R_Z) + (t_y - Y) * -sin(R_Z)) + X;
+	map->y = (int)((t_y - Y) * cos(R_Z) + (t_x - X) * sin(R_Z)) + Y;
 	map->z = 0;
 	if (win->flag == 0)
 		map->color = dot.color;
@@ -113,7 +113,7 @@ t_coords	**convert(t_window *win)
 	i = -1;
 	win->cen->x = win->arr[HALF_X][HALF_Y].x * SCALE;
 	win->cen->y = win->arr[HALF_X][HALF_Y].y * SCALE;
-	win->cen->z = win->arr[HALF_X][HALF_Y].z * HIGH;
+	win->cen->z = win->arr[HALF_X][HALF_Y].z;
 	while (++i < win->rows)
 	{
 		j = 0;

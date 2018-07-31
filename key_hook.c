@@ -15,17 +15,17 @@
 void		turn(int key, t_window *win)
 {
 	if (key == 13)
-		R_x += 0.2;
+		R_X += 0.2;
 	if (key == 1)
-		R_x -= 0.2;
+		R_X -= 0.2;
 	if (key == 2)
-		R_y += 0.2;
+		R_Y += 0.2;
 	if (key == 0)
-		R_y -= 0.2;
+		R_Y -= 0.2;
 	if (key == 14)
-		R_z += 0.2;
+		R_Z += 0.2;
 	if (key == 12)
-		R_z -= 0.2;
+		R_Z -= 0.2;
 }
 
 void		move(int key, t_window *win)

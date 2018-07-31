@@ -30,27 +30,46 @@ void	error_handling(int res)
 	exit(1);
 }
 
+int		count_words(char const *s, char c)
+{
+	int	num;
+	int	i;
+
+	i = 0;
+	num = 0;
+	while (s[i] == c && s[i] != '\0')
+		i++;
+	while (s[i] != '\0')
+	{
+		while (s[i] == c && s[i] != '\0')
+			i++;
+		if (s[i] == '\0')
+			break ;
+		while (s[i] != c && s[i] != '\0')
+			i++;
+		num++;
+	}
+	return (num);
+}
+
 void	columns(char *line)
 {
 	int		i;
-	int		j;
-	int		sp;
+	int		res;
+	char	**arr;
 
-	i = -1;
-	sp = 0;
-	if (line[0] < 48 || line[0] > 57)
+	i = 0;
+	if (line[0] != ' ' && line[0] != '-' && !ft_isdigit(line[0]))
 		error_handling(5);
-	while (line[++i] != '\n')
-		if (line[i] == ' ')
-			sp++;
-	i = -1;
-	while (line[i] != '\0')
+	arr = ft_strsplit(line, '\n');
+	while (arr[i] != 0)
 	{
-		if (line[i] != '\n' && line[i] == ' ')
-			j++;
-		if (line[i] == '\n')
-			j = 0;
-		else if (line[i] == '\n' && j != sp)
+		if (i == 0)
+			res = count_words(arr[i], ' ');
+		if (res != (int)count_words(arr[i], ' '))
 			error_handling(4);
+		free(arr[i]);
+		i++;
 	}
+	free(arr);
 }

@@ -59,3 +59,32 @@ void		color(int key, t_window *win)
 	if (key == 31)
 		COLOR = 0xEB7C21;
 }
+
+t_coords	**gradient(t_window **win)
+{
+	int i;
+	int j;
+
+	i = 0;
+	(*win)->flag = 1;
+	while (++i < (*win)->rows)
+	{
+		j = 0;
+		while (++j < (*win)->columns)
+			if ((*win)->arr[i][j].z > (*win)->max)
+				(*win)->max = (*win)->arr[i][j].z;
+	}
+	i = -1;
+	while (++i < (*win)->rows)
+	{
+		j = -1;
+		while (++j < (*win)->columns)
+		{
+			if ((*win)->arr[i][j].z == (*win)->max)
+				(*win)->mod_arr[i][j].color = (*win)->color;
+			else
+				(*win)->mod_arr[i][j].color = 0xFFFFFF;
+		}
+	}
+	return ((*win)->mod_arr);
+}

@@ -14,8 +14,13 @@
 # define FDF_H
 # define MAX(x, y) ((x) > (y)) ? (x) : (y)
 # define POS(x) (x >= 0 ? 1 : -1)
+# define X win->cen->x
+# define Y win->cen->y
+# define Z win->cen->z
 # define WIDTH win->width
 # define HEIGTH win->heigth
+# define HALF_X (win->rows / 2)
+# define HALF_Y (win->columns / 2)
 # define R_x win->corn_x
 # define R_y win->corn_y
 # define R_z win->corn_z
@@ -58,6 +63,7 @@ typedef struct		s_window
 	float			corn_x;
 	float			corn_y;
 	float			corn_z;
+	int				max;
 	int				high;
 	int				move_right;
 	int				move_up;
@@ -66,6 +72,8 @@ typedef struct		s_window
 	int				width;
 	int				heigth;
 	int				color;
+	int				flag;
+	t_coords		*cen;
 	t_coords		**arr;
 	t_coords		**mod_arr;
 }					t_window;
@@ -94,7 +102,7 @@ void				color(int key, t_window *win);
 void				memory_free(char **arr);
 t_coords			**parsing(char *argv, t_window **win);
 t_coords			**convert(t_window *win);
-t_coords			**gradient(t_window **win, t_coords **arr, t_coords **mod_arr);
+t_coords			**gradient(t_window **win);
 t_coords			**to_center(t_window *win, t_coords **arr);
 t_coords			**memmaloc(t_window *win);
 

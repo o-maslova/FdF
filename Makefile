@@ -25,7 +25,7 @@ all: $(NAME)
 
 $(NAME): $(BINS)
 	make -C libft
-	gcc -o $(NAME) $(LIBS) $(BINS) $(GRAPHICS) -g
+	gcc -o $(NAME) $(LIBS) $(BINS) $(GRAPHICS)
 
 %.o%.c :
 	gcc $(FLAGS) -o $< -c &< $(LIBS)
